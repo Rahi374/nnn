@@ -1189,6 +1189,9 @@ unescape(const char *str)
 int
 getgoback(struct entry *ent,int sel, int ncols)
 {
+	if(snprintf(g_buf, ncols, "%s%s", CURSYM(sel), unescape(ent->name)) < ncols)
+        return 0;
+
     const char *c = unescape(ent->name);
 
     // counts the number of columns before it enounters the filename
@@ -1261,6 +1264,9 @@ coolsize(off_t size)
 int
 getgoback_long(struct entry *ent, int sel, int ncols, char buf[18])
 {
+	if(snprintf(g_buf, ncols, "%s%-16.16s %8.8s %s", CURSYM(sel), buf, coolsize(ent->size), unescape(ent->name)) < ncols)
+        return 0;
+
     const char *c = unescape(ent->name);
 
     // counts the number of columns before it enounters the filename
